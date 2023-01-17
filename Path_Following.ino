@@ -57,57 +57,57 @@ void Stops(){
 }
 
 void waitKey(int pin){
-while(digitalRead(pin) == HIGH){
-delay(20);
-}
-while(digitalRead(pin) == LOW){
-  delay(20);
-}
+    while(digitalRead(pin) == HIGH){
+        delay(20);
+    }
+    while(digitalRead(pin) == LOW){
+      delay(20);
+    }
 }
 
 void setup() {
   // put your setup code here, to run once:
-Serial.begin(9600);
-pinMode(A0,INPUT); //Right LDR
-pinMode(A1,INPUT); //Mid LDR
-pinMode(A2,INPUT); //Left LDR
-pinMode(INFRA,INPUT);
-pinMode(INR,OUTPUT);
-pinMode(PBL,INPUT);
-pinMode(GREEN,OUTPUT); //Green LED = output
-pinMode(YELLOW,OUTPUT); //yellow LED = output
-pinMode(RED,OUTPUT); //red LED = output
-rightservo.attach(Right);
-leftservo.attach(Left);
-Stops();
-setLEDs(0,0,0);
-waitKey(PBR);  
+    Serial.begin(9600);
+    pinMode(A0,INPUT); //Right LDR
+    pinMode(A1,INPUT); //Mid LDR
+    pinMode(A2,INPUT); //Left LDR
+    pinMode(INFRA,INPUT);
+    pinMode(INR,OUTPUT);
+    pinMode(PBL,INPUT);
+    pinMode(GREEN,OUTPUT); //Green LED = output
+    pinMode(YELLOW,OUTPUT); //yellow LED = output
+    pinMode(RED,OUTPUT); //red LED = output
+    rightservo.attach(Right);
+    leftservo.attach(Left);
+    Stops();
+    setLEDs(0,0,0);
+    waitKey(PBR);  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  //reading LDRs
-int RLDR = analogRead(A0);
-int MLDR = analogRead(A1);
-int LLDR = analogRead(A2);
-while (LLDR>LLIGHT and RLDR>RLIGHT){
-setspeed(MEDIUM,MEDIUM);
-RLDR = analogRead(A0);
-LLDR = analogRead(A2);
-}
-if (RLDR<RDARK){
-  while(MLDR>MLIGHT){
-  ROTATE(-1);
-  MLDR = analogRead(A1);
-  }
-  ROTATE(-20);
-}//end of if
-else if (LLDR<LDARK){
-  while(MLDR>MLIGHT){
-  ROTATE(1);
-  MLDR = analogRead(A1);
-}
-ROTATE(20);
-} //end of else if
+      //reading LDRs
+    int RLDR = analogRead(A0);
+    int MLDR = analogRead(A1);
+    int LLDR = analogRead(A2);
+    while (LLDR>LLIGHT and RLDR>RLIGHT){
+        setspeed(MEDIUM,MEDIUM);
+        RLDR = analogRead(A0);
+        LLDR = analogRead(A2);
+    }
+    if (RLDR<RDARK){
+      while(MLDR>MLIGHT){
+          ROTATE(-1);
+          MLDR = analogRead(A1);
+     }
+        ROTATE(-20);
+    }//end of if
+    else if (LLDR<LDARK){
+      while(MLDR>MLIGHT){
+          ROTATE(1);
+          MLDR = analogRead(A1);
+    }
+        ROTATE(20);
+    } //end of else if
 }
